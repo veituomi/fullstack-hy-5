@@ -24,6 +24,13 @@ class Login extends React.Component {
 			.then(response => {
 				if (response && response.token) {
 					this.props.handler(response)
+					this.props.pushNotification({
+						content: 'Successfully logged in!'
+					})
+				} else {
+					this.props.pushNotification({
+						content: 'Authentication failed!'
+					})
 				}
 			})
 	}

@@ -28,6 +28,9 @@ class NewBlog extends React.Component {
 			author: this.state.author,
 			url: this.state.url
 		})
+		this.props.pushNotification({
+			content: 'New blog created!'
+		})
 	}
 
 	render() {
