@@ -52,7 +52,7 @@ class App extends React.Component {
 			<div>
 				<button onClick={() => this.setUser()}>logout</button>
 				<NewBlog pushNotification={this.pushNotification}></NewBlog>
-				<h2>blogs</h2>
+				<h1>blogs</h1>
 				{this.state.blogs.map(blog =>
 					<Blog key={blog._id} blog={blog}/>
 				)}
