@@ -4,7 +4,6 @@ import * as loginService from '../services/login'
 class Login extends React.Component {
 	constructor(props) {
 		super(props)
-		console.log(props)
 		this.state = {
 			username: '',
 			password: ''
