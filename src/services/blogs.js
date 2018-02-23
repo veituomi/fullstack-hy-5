@@ -14,3 +14,9 @@ export const create = (data) => {
 	})
 	return request.then(response => response.data)
 }
+
+export const update = (data) => {
+	return axios
+		.put(baseUrl + '/' + data._id, data)
+		.then(response => response.data)
+}

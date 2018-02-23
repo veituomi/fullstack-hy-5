@@ -1,11 +1,13 @@
 import React from 'react'
+import * as blogService from '../services/blogs'
 
 class Blog extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			expand: false,
-			style: undefined
+			style: undefined,
+			likes: props.blog.likes
 		}
 	}
 
@@ -20,13 +22,27 @@ class Blog extends React.Component {
 		})
 	}
 
+	like = (amount = 1) => {
+		const likes = this.state.likes + amount
+		blogService
+			.update({
+				...this.props.blog,
+				likes
+			})
+			.then(blog => {
+				this.setState({ likes })
+			})
+	}
+
 	expanded = () => {
 		if (this.state.expand) {
 			return (
 				<div>
 					author: {this.props.blog.author}<br/>
 					url: {this.props.blog.url}<br/>
-					{this.props.blog.likes} likes
+					{this.state.likes} likes
+					<button onClick={() => this.like(1)}>like</button>
+					<button onClick={() => this.like(-1)}>dislike</button>
 				</div>
 			)
 		}
@@ -34,8 +50,8 @@ class Blog extends React.Component {
 
 	render() {
 		return (
-			<div style={this.state.style} onClick={this.click}>
-				<h2>{this.props.blog.title}</h2>
+			<div style={this.state.style}>
+				<h2 onClick={this.click} style={{cursor: 'pointer'}}>{this.props.blog.title}</h2>
 				{this.expanded()}
 			</div>
 		)
