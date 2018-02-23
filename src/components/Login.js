@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import * as loginService from '../services/login'
 
 class Login extends React.Component {
@@ -60,7 +61,11 @@ class Login extends React.Component {
 			</form>
 		)
 	}
+}
 
+Login.propTypes = {
+	handler: PropTypes.func.isRequired,
+	pushNotification: PropTypes.func
 }
 
 export default Login

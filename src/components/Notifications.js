@@ -1,4 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
+const defaultStyle = {
+	border: '2px solid black',
+	background: 'orange',
+}
 
 class Notifications extends React.Component {
 	constructor(props) {
@@ -32,8 +38,7 @@ class Notifications extends React.Component {
 					.slice(0, 4)
 					.map(notification => (
 						<div style={{
-							border: '2px solid black',
-							background: 'orange',
+							...defaultStyle,
 							...notification.style
 						}}>{notification.content}
 						{(notification.buttons || []).map(button =>
@@ -48,7 +53,10 @@ class Notifications extends React.Component {
 			</div>
 		)
 	}
+}
 
+Notifications.propTypes = {
+	subscribe: PropTypes.func.isRequired
 }
 
 export default Notifications
