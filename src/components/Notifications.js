@@ -27,9 +27,24 @@ class Notifications extends React.Component {
 	render() {
 		return (
 			<div>
-				{this.state.notifications.slice(0, 4).map(notification => (
-					<div style={notification.style}>{notification.content}</div>
-				))}
+				{this.state.notifications
+					.filter(notification => !notification.dismissed)
+					.slice(0, 4)
+					.map(notification => (
+						<div style={{
+							border: '2px solid black',
+							background: 'orange',
+							...notification.style
+						}}>{notification.content}
+						{(notification.buttons || []).map(button =>
+							<button onClick={() => {
+								notification.dismissed = true
+								this.setState({ notifications: this.state.notifications })
+								button.callback()
+							}}>{button.label}</button>
+						)}
+						</div>
+					))}
 			</div>
 		)
 	}

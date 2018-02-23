@@ -15,6 +15,15 @@ export const create = (data) => {
 	return request.then(response => response.data)
 }
 
+/** Returns delete status code. */
+export const remove = (data) => {
+	const header = `Bearer ${loginService.getUser().token}`
+	const request = axios.delete(baseUrl + '/' + data._id, {
+		headers: { Authorization: header }
+	})
+	return request.then(response => response.status)
+}
+
 export const update = (data) => {
 	return axios
 		.put(baseUrl + '/' + data._id, data)

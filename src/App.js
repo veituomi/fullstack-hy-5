@@ -55,7 +55,7 @@ class App extends React.Component {
 				<NewBlog pushNotification={this.pushNotification}></NewBlog>
 				<h1>blogs</h1>
 				{this.state.blogs.map(blog =>
-					<Blog key={blog._id} blog={blog}/>
+					<Blog key={blog._id} blog={blog} pushNotification={this.pushNotification}/>
 				)}
 			</div>
 		)

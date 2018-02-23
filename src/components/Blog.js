@@ -5,6 +5,7 @@ class Blog extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			hide: false,
 			expand: false,
 			style: undefined,
 			likes: props.blog.likes
@@ -34,6 +35,39 @@ class Blog extends React.Component {
 			})
 	}
 
+	confirmRemove = () => {
+		this.props.pushNotification({
+			content: `Are you sure you want to delete ${this.props.blog.title}`,
+			buttons: [
+				{
+					label: 'Yes',
+					callback: () => this.remove()
+				},
+				{
+					label: 'No',
+					callback: () => void 0
+				},
+				{
+					label: 'Ask me later',
+					callback: () => setTimeout(() => this.confirmRemove(), 10000)
+				}
+			]
+		})
+	}
+
+	remove = () => {
+		blogService
+			.remove(this.props.blog)
+			.then(status => {
+				if (status == 200) {
+					this.setState({ hide: true })
+					this.props.pushNotification({ content: `Deleted ${this.props.blog.title}.` })
+				} else {
+					this.props.pushNotification({ content: 'Failed to delete!' })
+				}
+			})
+	}
+
 	expanded = () => {
 		if (this.state.expand) {
 			return (
@@ -41,6 +75,7 @@ class Blog extends React.Component {
 					author: {this.props.blog.author}<br/>
 					url: {this.props.blog.url}<br/>
 					{this.state.likes} likes
+					<button onClick={this.confirmRemove}>delete</button>
 					<button onClick={() => this.like(1)}>like</button>
 					<button onClick={() => this.like(-1)}>dislike</button>
 				</div>
@@ -49,6 +84,9 @@ class Blog extends React.Component {
 	}
 
 	render() {
+		if (this.state.hide) {
+			return <div style={{ display: 'none' }}>Hidden item</div>
+		}
 		return (
 			<div style={this.state.style}>
 				<h2 onClick={this.click} style={{cursor: 'pointer'}}>{this.props.blog.title}</h2>
