@@ -26,9 +26,10 @@ class App extends React.Component {
 		if (user) {
 			this.setState({ user })
 		}
-		blogService.getAll().then(blogs =>
+		blogService.getAll().then(blogs => {
+			blogs.sort((a, b) => b.likes - a.likes)
 			this.setState({ blogs })
-		)
+		})
 	}
 
 	setUser = (user) => {
