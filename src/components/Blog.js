@@ -1,5 +1,6 @@
 import React from 'react'
 import * as blogService from '../services/blogs'
+import * as loginService from '../services/login'
 
 class Blog extends React.Component {
 	constructor(props) {
@@ -59,13 +60,20 @@ class Blog extends React.Component {
 		blogService
 			.remove(this.props.blog)
 			.then(status => {
-				if (status == 200) {
+				if (status === 200) {
 					this.setState({ hide: true })
 					this.props.pushNotification({ content: `Deleted ${this.props.blog.title}.` })
 				} else {
 					this.props.pushNotification({ content: 'Failed to delete!' })
 				}
 			})
+	}
+
+	deleteButton = () => {
+		if (this.props.blog.user !== loginService.getUser().id || !this.props.blog.user) {
+			return
+		}
+		return <button onClick={this.confirmRemove}>delete</button>
 	}
 
 	expanded = () => {
@@ -75,7 +83,7 @@ class Blog extends React.Component {
 					author: {this.props.blog.author}<br/>
 					url: {this.props.blog.url}<br/>
 					{this.state.likes} likes
-					<button onClick={this.confirmRemove}>delete</button>
+					{this.deleteButton()}
 					<button onClick={() => this.like(1)}>like</button>
 					<button onClick={() => this.like(-1)}>dislike</button>
 				</div>
