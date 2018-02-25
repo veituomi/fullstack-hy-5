@@ -71,7 +71,9 @@ export class Blog extends React.Component {
 	}
 
 	deleteButton = () => {
-		if (this.props.blog.user !== loginService.getUser().id || !this.props.blog.user) {
+		if (!loginService.getUser() ||
+				this.props.blog.user !== loginService.getUser().id ||
+				!this.props.blog.user) {
 			return
 		}
 		return <button onClick={this.confirmRemove}>delete</button>
@@ -80,8 +82,7 @@ export class Blog extends React.Component {
 	expanded = () => {
 		if (this.state.expand) {
 			return (
-				<div>
-					author: {this.props.blog.author}<br/>
+				<div className="blogDetails">
 					url: {this.props.blog.url}<br/>
 					{this.state.likes} likes
 					{this.deleteButton()}
@@ -97,8 +98,9 @@ export class Blog extends React.Component {
 			return <div style={{ display: 'none' }}>Hidden item</div>
 		}
 		return (
-			<div style={this.state.style}>
+			<div style={this.state.style} className="blogElement">
 				<h2 onClick={this.click} style={{cursor: 'pointer'}}>{this.props.blog.title}</h2>
+				author: {this.props.blog.author}<br/>
 				{this.expanded()}
 			</div>
 		)
