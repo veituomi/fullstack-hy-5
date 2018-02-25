@@ -1,12 +1,12 @@
 import React from 'react'
-import { Blog } from './components/Blog'
-import Login from './components/Login'
-import NewBlog from './components/NewBlog'
-import Notifications from './components/Notifications'
-import * as blogService from './services/blogs'
-import * as loginService from './services/login'
+import { Blog } from '../Blog'
+import Login from '../Login'
+import NewBlog from '../NewBlog'
+import Notifications from '../Notifications'
+import * as blogService from '../../services/blogs'
+import * as loginService from '../../services/login'
 
-class App extends React.Component {
+export class App extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
