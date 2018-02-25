@@ -1,5 +1,5 @@
 import React from 'react'
-import Blog from './components/Blog'
+import { Blog } from './components/Blog'
 import Login from './components/Login'
 import NewBlog from './components/NewBlog'
 import Notifications from './components/Notifications'

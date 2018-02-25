@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import * as blogService from '../services/blogs'
-import * as loginService from '../services/login'
+import * as blogService from '../../services/blogs'
+import * as loginService from '../../services/login'
 
-class Blog extends React.Component {
+export class Blog extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -109,5 +109,3 @@ Blog.propTypes = {
 	blog: PropTypes.any.isRequired,
 	pushNotification: PropTypes.func
 }
-
-export default Blog
