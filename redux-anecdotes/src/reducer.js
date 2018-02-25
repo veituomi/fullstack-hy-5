@@ -21,6 +21,7 @@ const initialState = anecdotesAtStart.map(asObject)
 
 const actions = {
 	'@@redux/INIT': state => state,
+	create: (state, action) => [...state, asObject(action.name)],
 	vote: (state, action) => state.map(anecdote => ({
 		...anecdote,
 		votes : anecdote.votes + (anecdote.id === action.id ? 1 : 0)

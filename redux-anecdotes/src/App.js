@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 const actions = {
+	create: (getName) => ({
+		type: 'create',
+		name: getName()
+	}),
 	vote: (id) => ({
 		type: 'vote',
 		id
@@ -9,6 +13,17 @@ const actions = {
 }
 
 class App extends React.Component {
+	handleChange = (event) => {
+		this.setState({ newName: event.target.value })
+	}
+
+	constructor() {
+		super()
+		this.state = {
+			newName: ''
+		}
+	}
+
 	runAction(action) {
 		this.context.store.dispatch(action)
 	}
@@ -33,10 +48,8 @@ class App extends React.Component {
 					</div>
 				)}
 				<h2>create new</h2>
-				<form>
-					<div><input /></div>
-					<button>create</button> 
-				</form>
+				<div><input value={this.state.newName} onChange={this.handleChange} /></div>
+				<button onClick={() => this.runAction(actions.create(() => this.state.newName))}>create</button>
 			</div>
 		)
 	}
